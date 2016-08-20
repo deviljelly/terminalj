@@ -1,4 +1,4 @@
-package terminalj;
+package com.deviljelly.terminalj;
 
 public class TerminalJ {
 	
