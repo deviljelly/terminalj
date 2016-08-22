@@ -12,6 +12,18 @@ import com.deviljelly.terminalj.terminal.TerminalFactory;
 public class TerminalJ {
 	
 	public static void main(String[] args) {
+		
+		
+		
+		
+		try {
+			String[] cmd = {"/bin/sh", "-c", "stty raw -echo </dev/tty"};
+			Runtime.getRuntime().exec(cmd);
+			
+		} catch(Exception e) {
+			
+		}
+		
 		System.out.println("hello git world");
 
 	
@@ -22,12 +34,18 @@ public class TerminalJ {
 		
 		Terminal terminal  = TerminalFactory.getTerminal();
 		
+		
+		terminal.deviceStatusReport();
+		
+		
+		
+		
 		terminal.hideCursor();
 		
-		for(int j=0;j<30;j++) {
+		for(int j=0;j<100;j++) {
 			
 			terminal.setBackgroundColor(Color.BLACK, Intensity.NORMAL);
-			terminal.clearScreen();
+			terminal.eraseFullDisplay();
 			
 			int col = r.nextInt(7);
 			Color c = Color.BLACK;
@@ -66,8 +84,8 @@ public class TerminalJ {
 			
 			terminal.setBackgroundColor(c, Intensity.BRIGHT);
 			for(int i=0;i<1000	;i++) {
-				terminal.moveTo(r.nextInt(70), r.nextInt(200));
-				terminal.write((byte)'*');
+				terminal.cursorTo(r.nextInt(70), r.nextInt(200));
+				terminal.write((byte)' ');
 				
 			}
 			stop = System.nanoTime();
@@ -79,11 +97,80 @@ public class TerminalJ {
 			}
 		}
 		
+
 		terminal.setBackgroundColor(Color.BLACK, Intensity.NORMAL);
-		terminal.clearScreen();
-		terminal.moveTo(1, 1);
+		terminal.eraseFullDisplay();
+		terminal.cursorTo(1, 1);
 		terminal.showCursor();
-		System.out.println((stop-start)/1000);
+		
+		
+		
+		
+
+		for(int i=0;i<10;i++) {
+			terminal.cursorForward(1);
+			terminal.flush();
+			try {
+				Thread.sleep(50);
+			}catch(InterruptedException ie) {
+				
+			}
+			
+			
+		}
+
+		for(int i=0;i<10;i++) {
+			terminal.cursorDown(1);
+			terminal.flush();
+			try {
+				Thread.sleep(50);
+			}catch(InterruptedException ie) {
+				
+			}
+		}
+
+
+		for(int i=0;i<10;i++) {
+			terminal.cursorBack(1);
+			terminal.flush();
+			try {
+				Thread.sleep(50);
+			}catch(InterruptedException ie) {
+				
+			}
+		}
+
+
+		for(int i=0;i<10;i++) {
+			terminal.cursorUp(1);
+			terminal.flush();
+			try {
+				Thread.sleep(50);
+			}catch(InterruptedException ie) {
+				
+			}
+		}
+
+		
+
+	//	try {
+	//		Thread.sleep(2000);
+	//	}catch(InterruptedException ie) {
+			
+	//	} 
+		
+		terminal.showCursor();
+		try {
+			String[] cmd = {"/bin/sh", "-c", "stty cooked echo </dev/tty"};
+			Runtime.getRuntime().exec(cmd);
+			
+		} catch(Exception e) {
+			
+		}
+
+		
+		
+	//	System.out.println((stop-start)/1000);
 	}
 
 }

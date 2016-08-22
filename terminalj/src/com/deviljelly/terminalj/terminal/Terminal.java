@@ -1,15 +1,16 @@
 package com.deviljelly.terminalj.terminal;
 
-import com.deviljelly.terminalj.TerminalInputStream;
-import com.deviljelly.terminalj.TerminalOutputStream;
-
 public interface Terminal {
 
 	public Type getType();
 	
-	public void moveTo(int x, int y);
+	public void cursorTo(int row, int column);
 
-	public void clearScreen();
+	public void eraseFullDisplay();
+	
+	public void eraseDisplayToEnd();
+	
+	public void eraseDisplayToBeginning();
 	
 	public void write(byte character);
 
@@ -24,5 +25,23 @@ public interface Terminal {
 	public void setForgroundColor(Color color, Intensity intensity);
 
 	public void setBackgroundColor(Color color, Intensity intensity);
+	
+	public void cursorUp(int lines);
+
+	public void cursorDown(int lines);
+	
+	public void cursorForward(int columns);
+
+	public void cursorBack(int columns);
+
+	public void cursorNextLine(int lines);
+	
+	public void cursorPreviousLine(int lines);
+
+	public void scrollUp(int lines);
+
+	public void scrollDown(int lines);
+	
+	public DeviceStatus deviceStatusReport();
 	
 }
